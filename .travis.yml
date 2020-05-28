@@ -1,0 +1,9 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t sahilvma/docker-react -f Dockerfile.dev .
+
+script:
+    - docker run sahilvma/docker-react npm run test -- --coverage # coverage added so that npm run test exists
