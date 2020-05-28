@@ -6,4 +6,4 @@ before_install:
     - docker build -t sahilvma/docker-react -f Dockerfile.dev .
 
 script:
-    - docker run sahilvma/docker-react npm run test -- --coverage # coverage added so that npm run test exists
+    - docker run -e CI=true sahilvma/docker-react npm run test -- --coverage # coverage added so that npm run test exists
