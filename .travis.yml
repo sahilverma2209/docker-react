@@ -6,4 +6,17 @@ before_install:
     - docker build -t sahilvma/docker-react -f Dockerfile.dev .
 
 script:
-    - docker run -e CI=true sahilvma/docker-react npm run test -- --coverage # coverage added so that npm run test exists
+    - docker run -e CI=true sahilvma/docker-react npm run test -- --coverage # coverage added so that npm run test exists with code 0 (what travis needs to continue)
+
+deploy:
+    provider: elasticbeanstalk
+    region: "eu-west-1"
+    app: "dockerapp"
+    env: "DockerReact-env"
+    bucket_name: "elasticbeanstalk-eu-west-1-520519801211"
+    bucket_path: "dockerapp"
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: 
+        secure: "$AWS_SECRET_KEY"
